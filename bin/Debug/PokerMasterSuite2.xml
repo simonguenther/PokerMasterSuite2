@@ -1,0 +1,1352 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>PokerMasterSuite2</name>
+    </assembly>
+    <members>
+        <member name="T:PokerMasterSuite2.AlertCheckBox">
+            <summary>
+            Extension of Windows.Forms.CheckBox to meet requirements
+            </summary>
+        </member>
+        <member name="M:PokerMasterSuite2.AlertCheckBox.#ctor">
+            <summary>
+            Init with default settings 
+            </summary>
+        </member>
+        <member name="M:PokerMasterSuite2.AlertCheckBox.AlertCheckBox_CheckedChanged(System.Object,System.EventArgs)">
+            <summary>
+            If Checked, Alerter will monitor the table if buttons will appear => Player has options
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:PokerMasterSuite2.AlertCheckBox.SetParent(System.IntPtr)">
+            <summary>
+            Sets Parent of the CheckBox
+            Usually going to be the TablePointer
+            </summary>
+            <param name="newParent"></param>
+        </member>
+        <member name="T:PokerMasterSuite2.Helper">
+            <summary>
+            Helper Class for methods which don't find in any other class or will be needed at different times during runtime
+            </summary>
+        </member>
+        <member name="M:PokerMasterSuite2.Helper.CalcLevenshteinDistance(System.String,System.String)">
+            <summary>
+            Calcuate Levenshtein Distance between two names => https://en.wikipedia.org/wiki/Levenshtein_distance
+            "how many characters do I have to change to get matching strings?"
+            f.e. "Walter" and "Watler" => Distance 2
+            f.e. "rofl" and "r0fl" => Distance 1
+            </summary>
+            <param name="a">Nickname #1</param>
+            <param name="b">Nickname #2</param>
+            <returns>Levenshtein Distance from a to b</returns>
+        </member>
+        <member name="M:PokerMasterSuite2.Helper.colorIsInRange(System.Drawing.Color,System.Drawing.Color,System.Int32)">
+            <summary>
+            Check for range of color since color of buttons are slightly different depending on Emulator used
+            </summary>
+            <param name="checkPix">Looking fot this color / Average color of butons</param>
+            <param name="picPix">Color which gets compared to checkPix</param>
+            <param name="allowedRange">+- range color is allowed to be in</param>
+            <returns></returns>
+        </member>
+        <member name="T:PokerMasterSuite2.BackgroundSeatingWorker">
+            <summary>
+            Extension of BackgroundWorker, only adds an option to store ScanButton it belongs to
+            </summary>
+        </member>
+        <member name="T:PokerMasterSuite2.ButtonPositions">
+            <summary>
+            Template and Default initialization of PlayerButtons
+            </summary>
+        </member>
+        <member name="T:PokerMasterSuite2.CustomPictureBox">
+            <summary>
+            Extends PictureBox for storing TableHandle, SimilarNickList and PlayerButton references
+            </summary>
+        </member>
+        <member name="P:PokerMasterSuite2.CustomPictureBox.TableHandle">
+            <summary>
+            Stores pointer of table the picturebox is attached to
+            </summary>
+        </member>
+        <member name="P:PokerMasterSuite2.CustomPictureBox.SimilarNicks">
+            <summary>
+            Stores String-List of SmilarNicks which then are going to get displayed if someone clicks on the picturebox
+            </summary>
+        </member>
+        <member name="P:PokerMasterSuite2.CustomPictureBox.PlayerButton">
+            <summary>
+            PlayerButton the picturebox relates to
+            </summary>
+        </member>
+        <member name="M:PokerMasterSuite2.CustomPictureBox.SetParent(System.IntPtr)">
+            <summary>
+            Setting Parent for easier referencing later on
+            </summary>
+            <param name="newParent"></param>
+        </member>
+        <member name="T:PokerMasterSuite2.DictionaryTemplates">
+            <summary>
+            Initialize Dictionary templates for all supported table-sizes
+            </summary>
+        </member>
+        <member name="T:PokerMasterSuite2.EmulatorHandler">
+            <summary>
+            Recieves open windows from operating system and returns a list of pointers to Emulator Tables based on a regular expression (like placemint)
+            Using WinAPI-Calls
+            </summary>
+        </member>
+        <member name="M:PokerMasterSuite2.EmulatorHandler.#ctor(System.String)">
+            <summary>
+            Init handle-list and set regular expression of emulator windows
+            </summary>
+            <param name="regExpression"></param>
+        </member>
+        <member name="P:PokerMasterSuite2.EmulatorHandler.emulatorHandles">
+            <summary>
+            Holds all open windows 
+            </summary>
+        </member>
+        <member name="M:PokerMasterSuite2.EmulatorHandler.getWindows">
+            <summary>
+            Get Windows from API
+            </summary>
+        </member>
+        <member name="M:PokerMasterSuite2.EmulatorHandler.EnumWindowCallBack(System.Int32,System.Int32)">
+            <summary>
+            Gets called by Delegate function WinCallBack
+            interates through all open windows
+            </summary>
+            <param name="hwnd"></param>
+            <param name="lParam"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PokerMasterSuite2.EmulatorHandler.getEmulatorList">
+            <summary>
+            Returns list with all open emulator windows (aka tables)
+            </summary>
+            <returns>List of Emulator pointers</returns>
+        </member>
+        <member name="T:PokerMasterSuite2.FormChangeNickAvatar">
+            <summary>
+            Custom Dialog which enables the user to change a player by avatar
+            </summary>
+        </member>
+        <member name="M:PokerMasterSuite2.FormChangeNickAvatar.#ctor(System.String,System.String)">
+            <summary>
+            Initialize Form parameters, define and add controls
+            </summary>
+            <param name="seatname"></param>
+            <param name="tablename"></param>
+        </member>
+        <member name="M:PokerMasterSuite2.FormChangeNickAvatar.Accept_Click(System.Object,System.EventArgs)">
+            <summary>
+            EventHandler when Accepting change by tags
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:PokerMasterSuite2.FormChangeNickAvatar.executeChangeByAvatar">
+            <summary>
+            Orchestrates change of nickname in data representation as well as in gui part
+            </summary>
+        </member>
+        <member name="M:PokerMasterSuite2.FormChangeNickAvatar.searchByTags_KeyDown(System.Object,System.Windows.Forms.KeyEventArgs)">
+            <summary>
+            Manages search and display of tags
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="T:PokerMasterSuite2.FormChangeNickManually">
+            <summary>
+            Custom Dialog when wanting to change the Playername by hand
+            </summary>
+        </member>
+        <member name="M:PokerMasterSuite2.FormChangeNickManually.#ctor(System.String)">
+            <summary>
+            Init with old nickname 
+            </summary>
+            <param name="nickname"></param>
+        </member>
+        <member name="M:PokerMasterSuite2.FormChangeNickManually.run">
+            <summary>
+            Adds controls to form and handles interaction with the user
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:PokerMasterSuite2.FormNoteWindow">
+            <summary>
+            Note Window Form
+            Visualize Note- and Playerdata to the user
+            </summary>
+        </member>
+        <member name="M:PokerMasterSuite2.FormNoteWindow.#ctor(PokerMasterSuite2.Note,System.String)">
+            <summary>
+            Init note window with note
+            
+            Going to get called by Similar Nick Icon
+            </summary>
+            <param name="singleNote"></param>
+            <param name="tablename">needed for placing the window above the table of the player and not somewhere else on the screen</param>
+        </member>
+        <member name="M:PokerMasterSuite2.FormNoteWindow.#ctor(System.String,System.String)">
+            <summary>
+            Only one notewindow per player should be opened, set to foreground if double open
+            !!! Bug: Seems like western nicknames work fine but chinese dont !!!+
+            
+            Will get called from PlayerButton.Click
+            
+            </summary>
+            <param name="playername"></param>
+            <param name="tablename"></param>
+        </member>
+        <member name="M:PokerMasterSuite2.FormNoteWindow.loadValuesFromNote">
+            <summary>
+            Retrieve Information from Note and add it to relevant components
+            </summary>
+        </member>
+        <member name="M:PokerMasterSuite2.FormNoteWindow.constructNewNote(System.String,System.String)">
+            <summary>
+            If there is no Note stored for a player => Create a new note!
+            </summary>
+            <param name="playername"></param>
+            <param name="tablename"></param>
+        </member>
+        <member name="M:PokerMasterSuite2.FormNoteWindow.ProcessCmdKey(System.Windows.Forms.Message@,System.Windows.Forms.Keys)">
+            <summary>
+            Hotkey => Call BtnSave_Click on Shift+Enter
+            </summary>
+            <param name="msg"></param>
+            <param name="keyData"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PokerMasterSuite2.FormNoteWindow.setAppearanceLocation(System.String)">
+            <summary>
+            Get Infos from Table to set NoteWindow appearance into the center of the table
+            </summary>
+            <param name="table"></param>
+        </member>
+        <member name="M:PokerMasterSuite2.FormNoteWindow.initComponents">
+            <summary>
+            Initialize all Components with default settings and add them to the Form
+            </summary>
+        </member>
+        <member name="M:PokerMasterSuite2.FormNoteWindow.BtnDelNote_Click(System.Object,System.EventArgs)">
+            <summary>
+            EventHandler - Delete Note from inside NoteWindow
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:PokerMasterSuite2.FormNoteWindow.BtnSave_Click(System.Object,System.EventArgs)">
+            <summary>
+            Saves updated note (also to file)
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:PokerMasterSuite2.FormNoteWindow.BtnUpdateAvatar_Click(System.Object,System.EventArgs)">
+            <summary>
+            Update Avatar from out of Note Window
+            Basically just takes screenshot of Avatar-Rectangle and puts it into data representation
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="T:PokerMasterSuite2.FormTemplate">
+            <summary>
+            Form Template which adds "Close on Escape-Button" to all Forms
+            </summary>
+        </member>
+        <member name="M:PokerMasterSuite2.FormTemplate.ProcessCmdKey(System.Windows.Forms.Message@,System.Windows.Forms.Keys)">
+            <summary>
+            Close on Escape
+            </summary>
+            <param name="msg"></param>
+            <param name="keyData"></param>
+            <returns></returns>
+        </member>
+        <member name="T:PokerMasterSuite2.GlobalSettings">
+            <summary>
+            Library of settings for every part of the toolbox
+            </summary>
+        </member>
+        <member name="T:PokerMasterSuite2.GlobalSettings.General">
+            <summary>
+            General Preset Settings
+            </summary>
+        </member>
+        <member name="T:PokerMasterSuite2.GlobalSettings.ButtonSettings">
+            <summary>
+            Preset settings for PlayerButtons
+            </summary>
+        </member>
+        <member name="T:PokerMasterSuite2.GlobalSettings.Images">
+            <summary>
+            Init of images (lock-image, etc)
+            </summary>
+        </member>
+        <member name="T:PokerMasterSuite2.GlobalSettings.Notes">
+            <summary>
+            Note preset (colors, LevenshteinDistance, etc)
+            </summary>
+        </member>
+        <member name="T:PokerMasterSuite2.GlobalSettings.ChangeNickManually">
+            <summary>
+            Presets for Dialog when changing Nick manually
+            </summary>
+        </member>
+        <member name="T:PokerMasterSuite2.GlobalSettings.ChangeNickByAvatar">
+            <summary>
+            Presets for Dialog when changing Nick by avatar
+            </summary>
+        </member>
+        <member name="T:PokerMasterSuite2.GlobalSettings.SeatingScript">
+            <summary>
+            Presets seating script (sounds, interval,...)
+            </summary>
+        </member>
+        <member name="T:PokerMasterSuite2.GraphicPositions">
+            <summary>
+            Preset/Hardcoded positions of both, OCR-Rectangle for reading playernames as well as Avatar-Rectangle 
+            </summary>
+        </member>
+        <member name="F:PokerMasterSuite2.GraphicPositions.ocrRectangle_SIX">
+            <summary>
+            6 max - SIX HANDED >> OCR and Avatar positions
+            </summary>
+        </member>
+        <member name="F:PokerMasterSuite2.GraphicPositions.ocrRectangle_SEVEN">
+            <summary>
+            7 max - SEVEN HANDED >> OCR and Avatar positions
+            </summary>
+        </member>
+        <member name="F:PokerMasterSuite2.GraphicPositions.ocrRectangle_EIGHT">
+            <summary>
+            8 max - EIGHT HANDED >> OCR and Avatar positions
+            </summary>
+        </member>
+        <member name="F:PokerMasterSuite2.GraphicPositions.ocrRectangle_NINE">
+            <summary>
+            9 max - NINE HANDED >> OCR and Avatar positions
+            </summary>
+        </member>
+        <member name="M:PokerMasterSuite2.GraphicPositions.#ctor">
+            <summary>
+            Initialize ocr and avatar Dicitionaries
+            </summary>
+        </member>
+        <member name="M:PokerMasterSuite2.GraphicPositions.SixHanded">
+            <summary>
+            Creates Dictionary array which contains OCR and Avatar positions
+            </summary>
+            <returns>Dictionary-Array [0] => OCR Positions, [1] => Avatar Positions</returns>
+        </member>
+        <member name="M:PokerMasterSuite2.GraphicPositions.SevenHanded">
+            <summary>
+            Creates Dictionary array which contains OCR and Avatar positions
+            </summary>
+            <returns>Dictionary-Array [0] => OCR Positions, [1] => Avatar Positions</returns>
+        </member>
+        <member name="M:PokerMasterSuite2.GraphicPositions.EightHanded">
+            <summary>
+            Creates Dictionary array which contains OCR and Avatar positions
+            </summary>
+            <returns>Dictionary-Array [0] => OCR Positions, [1] => Avatar Positions</returns>
+        </member>
+        <member name="M:PokerMasterSuite2.GraphicPositions.NineHanded">
+            <summary>
+            Creates Dictionary array which contains OCR and Avatar positions
+            </summary>
+            <returns>Dictionary-Array [0] => OCR Positions, [1] => Avatar Positions</returns>
+        </member>
+        <member name="M:PokerMasterSuite2.GraphicPositions.getGraphicPositions(System.Int32)">
+            <summary>
+            Public interface for connection with other classes
+            </summary>
+            <param name="numberOfSeats">Number of Seats on the table</param>
+            <returns>Dictionary-Array [0] => OCR Positions, [1] => Avatar Positions</returns>
+        </member>
+        <member name="T:PokerMasterSuite2.Note">
+            <summary>
+            Note Class Definition
+            </summary>
+        </member>
+        <member name="P:PokerMasterSuite2.Note.Name">
+            <summary>
+            Playername
+            </summary>
+        </member>
+        <member name="P:PokerMasterSuite2.Note.Color">
+            <summary>
+            Colorcode for playername as ToString()
+            USE getColor INSTEAD of just COLOR! only public b/c otherwise saving would not work
+            </summary>
+        </member>
+        <member name="P:PokerMasterSuite2.Note.Text">
+            <summary>
+            Note text
+            </summary>
+        </member>
+        <member name="P:PokerMasterSuite2.Note.Avatar">
+            <summary>
+            Avatar Picture encoded in base64
+            </summary>
+        </member>
+        <member name="P:PokerMasterSuite2.Note.Tags">
+            <summary>
+            Playertags as string
+            </summary>
+        </member>
+        <member name="M:PokerMasterSuite2.Note.#ctor(System.String,System.String,System.String)">
+            <summary>
+            Constructor when opened from table
+            </summary>
+            <param name="name">Playername</param>
+            <param name="color">Playercolor</param>
+            <param name="text">Notetext</param>
+        </member>
+        <member name="M:PokerMasterSuite2.Note.#ctor">
+            <summary>
+            Dummy constructor when Note fails to load
+            </summary>
+        </member>
+        <member name="M:PokerMasterSuite2.Note.getColor">
+            <summary>
+            Checks for "null" and empty string in Color
+            </summary>
+            <returns>"Cotrols" (Windows default color) on empty/null-string or Color as string</returns>
+        </member>
+        <member name="T:PokerMasterSuite2.NoteHandler">
+            <summary>
+            Deals with everything Note-related
+            # Loading notes from file
+            # Saving to file
+            # Refreshing loaded notes
+            # Returning Note to other parts of the toolbox if needed
+            </summary>
+        </member>
+        <member name="F:PokerMasterSuite2.NoteHandler.loadedNotes">
+            <summary>
+            Holds notes during runtime
+            </summary>
+        </member>
+        <member name="M:PokerMasterSuite2.NoteHandler.refreshNotesFromFile">
+            <summary>
+            Loads JSON-Notefile and processes it into Dictionary loadedNotes
+            </summary>
+        </member>
+        <member name="M:PokerMasterSuite2.NoteHandler.saveNotesToFile">
+            <summary>
+            Save Notes from loadedNotes-Dictionary to JSON-Notefile specific in GlobalSettings
+            </summary>
+        </member>
+        <member name="M:PokerMasterSuite2.NoteHandler.getNote(System.String)">
+            <summary>
+            Handles and returns Note-Requests for specific playernames
+            </summary>
+            <param name="playername">Nickname requested</param>
+            <returns>Either new/empty node or filled one if available in loadedNotes</returns>
+        </member>
+        <member name="M:PokerMasterSuite2.NoteHandler.saveNote(PokerMasterSuite2.Note)">
+            <summary>
+            Saves note to Dictionary
+            </summary>
+            <param name="updatedNote"></param>
+        </member>
+        <member name="M:PokerMasterSuite2.NoteHandler.deleteNote(System.String)">
+            <summary>
+            Deletes single notes from Dictionary (does not save!)
+            </summary>
+            <param name="playername"></param>
+        </member>
+        <member name="M:PokerMasterSuite2.NoteHandler.searchNoteByTags(System.String)">
+            <summary>
+            Search for players with certain combination of tags
+            </summary>
+            <param name="searchTags">Tags - can be multiple tags, separated by spaces</param>
+            <returns>List of Notes with matching tags</returns>
+        </member>
+        <member name="M:PokerMasterSuite2.NoteHandler.imageToBase64(System.Drawing.Image)">
+            <summary>
+            Convert images to base64 format (gets stored in JSON)
+            </summary>
+            <param name="image">Avatar pictures</param>
+            <returns>base64 encoded image</returns>
+        </member>
+        <member name="M:PokerMasterSuite2.NoteHandler.base64ToImage(System.String)">
+            <summary>
+            Convert base64 strings to Images
+            </summary>
+            <param name="baseString">base64 string of encoded image</param>
+            <returns>Avatars as image</returns>
+        </member>
+        <member name="M:PokerMasterSuite2.NoteHandler.printDictionary(System.Collections.Generic.Dictionary{System.String,PokerMasterSuite2.Note})">
+            <summary>
+            Debug method for printing dictionaries
+            </summary>
+            <param name="dd"></param>
+        </member>
+        <member name="M:PokerMasterSuite2.NoteHandler.playerHasNote(System.String)">
+            <summary>
+            Check if player has a note text or only a color set!
+            </summary>
+            <param name="playername">nick of player</param>
+            <returns>true/false</returns>
+        </member>
+        <member name="M:PokerMasterSuite2.NoteHandler.findSimilarNicknames(System.String,System.Int32)">
+            <summary>
+            Since OCR on Chinese Nicknames can differ in quality, often the same nickname might get OCR'd slightly different (off by 1 or 2 signs f.e.)
+            This method checks the Levenshtein Distance (Default is set to 2) from a playername vs. all playernames saved in the Note-File
+            (This Info will later be needed when displaying similar nicknames on the table to prevent people taking couple notes on the same players)
+            </summary>
+            <param name="playername">Playername in question</param>
+            <param name="maxDistance">Maximum acceptable Levenshtein Distance (default set to 2)</param>
+            <returns>Levenshtein Distance</returns>
+        </member>
+        <member name="T:PokerMasterSuite2.OpticalCharacterRecognition">
+            <summary>
+            Holds all necessary methods for OCRing information from tablescreenshots
+            </summary>
+        </member>
+        <member name="M:PokerMasterSuite2.OpticalCharacterRecognition.ocr(Tesseract.TesseractEngine,System.Drawing.Bitmap)">
+            <summary>
+            Main OCR function (based on Google's open TesseractEngine)
+            </summary>
+            <param name="engine">Tesseract Instance</param>
+            <param name="bmp">Image in question</param>
+            <returns>ocr'd string from image</returns>
+        </member>
+        <member name="M:PokerMasterSuite2.OpticalCharacterRecognition.MakeGrayscale3(System.Drawing.Bitmap)">
+            <summary>
+            Turn colord image into grayscale image
+            </summary>
+            <param name="original">color image</param>
+            <returns>grey image</returns>
+        </member>
+        <member name="T:PokerMasterSuite2.PlayerButton">
+            <summary>
+            Extends Windows.Forms.Button and implements all necessary methods to manage those during runtime (changing, deleting,...)
+            </summary>
+        </member>
+        <member name="M:PokerMasterSuite2.PlayerButton.#ctor">
+            <summary>
+            Init Button with default values from GlobalSettings
+            </summary>
+        </member>
+        <member name="M:PokerMasterSuite2.PlayerButton.PlayerButton_Click(System.Object,System.EventArgs)">
+            <summary>
+            Open Note Window on Click
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:PokerMasterSuite2.PlayerButton.SetParent(System.IntPtr)">
+            <summary>
+            Set Parent => Makes it easier later to navigate through changes made on the table
+            </summary>
+            <param name="newParent"></param>
+        </member>
+        <member name="M:PokerMasterSuite2.PlayerButton.setNoteImage(System.Boolean)">
+            <summary>
+            If Player has a note (real text, not just color), display note icon on the left side of the button
+            </summary>
+            <param name="hasNote"></param>
+        </member>
+        <!-- Ungültiger XML-Kommentar wurde für den Member "M:PokerMasterSuite2.PlayerButton.SetPlayerNameContextMenu(System.String,System.String,System.String,System.Boolean)" ignoriert -->
+        <member name="M:PokerMasterSuite2.PlayerButton.similarImage_Click(System.Object,System.Windows.Forms.MouseEventArgs)">
+            <summary>
+            Handles actions when clicked on SimilarImage-Icon
+            * RightClick => Removes Icon
+            * Left Click => If there is only one similar nick, it will adjust the player from the button to the one from the similar icon
+                            If there are more than one => Open NoteWindows for all similar nicks!
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:PokerMasterSuite2.PlayerButton.removeSimilarNickImage(PokerMasterSuite2.PlayerButton)">
+            <summary>
+            Remove Similar Nick Image
+            </summary>
+            <param name="b"></param>
+        </member>
+        <member name="M:PokerMasterSuite2.PlayerButton.removeLockImage(PokerMasterSuite2.PlayerButton)">
+            <summary>
+             Remove Lock Image
+            </summary>
+            <param name="b"></param>
+        </member>
+        <member name="T:PokerMasterSuite2.PlayerButtonContextMenuActions">
+            <summary>
+            Handles all the actions which belong to the context menu of each PlayerButton (representing the player on the screen)
+            </summary>
+        </member>
+        <member name="M:PokerMasterSuite2.PlayerButtonContextMenuActions.lockSeat(System.String,System.String)">
+            <summary>
+            Lock Seat - Since we usually need to re-scan the table (because of those call/fold/raise bubbles) in order to get info on ALL players, 
+                        we need to lock those recognized players where everything is fine in order to prevent re-scanning them
+                        (Especially if we had to adjust the nickname because of some OCR mistake)
+            </summary>
+            <param name="seatName">Which seat should get locked?</param>
+            <param name="tableName">Which table are we talking about?</param>
+        </member>
+        <member name="M:PokerMasterSuite2.PlayerButtonContextMenuActions.unlockSeat(System.String,System.String)">
+            <summary>
+            Unlock locked seat (in data represantation and in graphical representation buy removing the Lock-Image)
+            </summary>
+            <param name="seatName"></param>
+            <param name="tableName"></param>
+        </member>
+        <member name="M:PokerMasterSuite2.PlayerButtonContextMenuActions.removeSeatFromTable(System.String,System.String)">
+            <summary>
+            When a new player sits on a prior occupied seat, it makes sense to completely remove every loaded info on that seat
+            </summary>
+            <param name="seatName"></param>
+            <param name="tableName"></param>
+        </member>
+        <member name="M:PokerMasterSuite2.PlayerButtonContextMenuActions.renameSeat(System.String,System.String)">
+            <summary>
+            Rename playername at a specific seat. Used by adjusting either manually
+            </summary>
+            <param name="seatname"></param>
+            <param name="tablename"></param>
+        </member>
+        <member name="M:PokerMasterSuite2.PlayerButtonContextMenuActions.displayDebugTableData(System.String)">
+            <summary>
+            Debug method for displaying retrieved table data
+            </summary>
+            <param name="tableName"></param>
+        </member>
+        <member name="T:PokerMasterSuite2.PlayerButtonContextMenuStrip">
+            <summary>
+            Handles actions from Context Menu of each playerbutton by relaying the actions 
+            </summary>
+        </member>
+        <!-- Ungültiger XML-Kommentar wurde für den Member "M:PokerMasterSuite2.PlayerButtonContextMenuStrip.#ctor" ignoriert -->
+        <member name="M:PokerMasterSuite2.PlayerButtonContextMenuStrip.changeNicknameManually_Click(System.Object,System.EventArgs)">
+            <summary>
+            Change Nickname manually
+            </summary>
+            <param name="sender">should be ToolStripMenuItem</param>
+            <param name="e"></param>
+        </member>
+        <member name="M:PokerMasterSuite2.PlayerButtonContextMenuStrip.changeNicknameByAvatar_Click(System.Object,System.EventArgs)">
+            <summary>
+            Change Nickname by Avatar/Tags
+            </summary>
+            <param name="sender">should be ToolStripMenuItem</param>
+            <param name="e"></param>
+        </member>
+        <member name="M:PokerMasterSuite2.PlayerButtonContextMenuStrip.RemoveButton_Click(System.Object,System.EventArgs)">
+            <summary>
+            Remove Single Button 
+            </summary>
+            <param name="sender">should be ToolStripMenuItem</param>
+            <param name="e"></param>
+        </member>
+        <member name="M:PokerMasterSuite2.PlayerButtonContextMenuStrip.LockButton_Click(System.Object,System.EventArgs)">
+            <summary>
+            Locks Single Button
+            </summary>
+            <param name="sender">should be ToolStripMenuItem</param>
+            <param name="e"></param>
+        </member>
+        <member name="M:PokerMasterSuite2.PlayerButtonContextMenuStrip.DisplayDebugTableData_Click(System.Object,System.EventArgs)">
+            <summary>
+            Display Debug Table Data Form 
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="T:PokerMasterSuite2.PlayerButtonHandler">
+            <summary>
+            Handles everything related to displaying PlayerButtons on a specific table
+            </summary>
+        </member>
+        <member name="M:PokerMasterSuite2.PlayerButtonHandler.#ctor(PokerMasterSuite2.TableData)">
+            <summary>
+            Init handler with tableinformation
+            </summary>
+            <param name="tableDataInformation"></param>
+        </member>
+        <member name="M:PokerMasterSuite2.PlayerButtonHandler.removeSimilarNickImage(System.String)">
+            <summary>
+            Removes similar nickname image from screen
+            </summary>
+            <param name="seatName"></param>
+        </member>
+        <member name="M:PokerMasterSuite2.PlayerButtonHandler.removeUnlockedButtons(System.Collections.Generic.Stack{System.String})">
+            <summary>
+            Remove unlocked buttons - called at the beginning of the scan-Method in order to remove all unlocked seats/buttons which then will get re-scanned
+            </summary>
+            <param name="scanTheseSeats">Stack of unlocked seats retrieved from tabledata</param>
+        </member>
+        <member name="M:PokerMasterSuite2.PlayerButtonHandler.setSimilarNickImage(PokerMasterSuite2.PlayerButton,System.Collections.Generic.List{PokerMasterSuite2.Note})">
+            <summary>
+            Set Similar images for buttons if necessary
+            </summary>
+            <param name="button">Which button should we attach similar nicks to?</param>
+            <param name="similar">List of similar nicks</param>
+        </member>
+        <member name="M:PokerMasterSuite2.PlayerButtonHandler.setLockImage(System.String,System.IntPtr)">
+            <summary>
+            Set LockImage for single seat
+            </summary>
+            <param name="seatName"></param>
+            <param name="tablePointer"></param>
+        </member>
+        <member name="M:PokerMasterSuite2.PlayerButtonHandler.createToolTipAndNoteIcon(PokerMasterSuite2.PlayerButton,System.String)">
+            <summary>
+            C# has a bug where tooltips for Buttons whicha re created during runtime will fail to show up
+            Workaround is adding a transparent label on that button and attach the tooltip to that label
+            If a Player has a note, we add a Note Icon to the left side of the button and implement the workaround for the tooltip
+            </summary>
+            <param name="button"></param>
+            <param name="playername"></param>
+        </member>
+        <member name="M:PokerMasterSuite2.PlayerButtonHandler.Button_MouseLeave(System.Object,System.EventArgs)">
+            <summary>
+            Deal with showing/hiding tooltip
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:PokerMasterSuite2.PlayerButtonHandler.Button_MouseHover(System.Object,System.EventArgs)">
+            <summary>
+            Implementing the Tooltip-Workaround found on StackOverflow
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:PokerMasterSuite2.PlayerButtonHandler.removeLockImage(System.String)">
+            <summary>
+            Remove LockImage from PlayerButton
+            </summary>
+            <param name="seatName"></param>
+        </member>
+        <member name="M:PokerMasterSuite2.PlayerButtonHandler.updateButtons(PokerMasterSuite2.TableData,System.Boolean)">
+            <summary>
+            Update PlayerButtons triggers a repaint of PlayerButtons
+            </summary>
+            <param name="tableData">provide tabledata in order to update buttons</param>
+            <param name="force">true = also update locked buttons (necessary for new tables), false = repaints only unlocked buttons</param>
+        </member>
+        <member name="M:PokerMasterSuite2.PlayerButtonHandler.retrieveButtonTemplate(System.Int32)">
+            <summary>
+            Retrieve Button template depending on size of the table
+            </summary>
+            <param name="numberOfSeats"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PokerMasterSuite2.PlayerButtonHandler.removeButton(System.String)">
+            <summary>
+            Remove Single Button from Table
+            </summary>
+            <param name="seatName"></param>
+        </member>
+        <member name="M:PokerMasterSuite2.PlayerButtonHandler.removeAllLockImages">
+            <summary>
+            Remove all Locks from single Table
+            </summary>
+        </member>
+        <member name="M:PokerMasterSuite2.PlayerButtonHandler.removeAllSimilarNickImages">
+            <summary>
+            Remove all similar nick images from table
+            </summary>
+        </member>
+        <member name="M:PokerMasterSuite2.PlayerButtonHandler.resetLockToolstrip(System.String)">
+            <summary>
+            Reset PlayerButton context-menu to "text" if ScanButton context-menu "Remove Locks"/"Lock All" has been used before
+            </summary>
+            <param name="text"></param>
+        </member>
+        <member name="M:PokerMasterSuite2.PlayerButtonHandler.removeAllButtons">
+            <summary>
+            Remove all Buttons and Images from Table
+            </summary>
+        </member>
+        <member name="M:PokerMasterSuite2.PlayerButtonHandler.lockAllButtons">
+            <summary>
+            Lock all Buttons for a single table
+            </summary>
+        </member>
+        <member name="M:PokerMasterSuite2.PlayerButtonHandler.Dispose">
+            <summary>
+            Disposes lock and similarNick images
+            </summary>
+        </member>
+        <member name="T:PokerMasterSuite2.RawSeatInfo">
+            <summary>
+            Helper Class for handling images before and after OCR
+            </summary>
+        </member>
+        <member name="T:PokerMasterSuite2.RawSeatInfoDebugDisplay">
+            <summary>
+            Debug Info display 
+            </summary>
+        </member>
+        <member name="T:PokerMasterSuite2.SeatingScript">
+            <summary>
+            SeatingScript - Monitoring open table and take seat once it opens
+            </summary>
+        </member>
+        <member name="M:PokerMasterSuite2.SeatingScript.#ctor">
+            <summary>
+            Initialize Worker
+            </summary>
+        </member>
+        <member name="M:PokerMasterSuite2.SeatingScript.Worker_RunWorkerCompleted(System.Object,System.ComponentModel.RunWorkerCompletedEventArgs)">
+            <summary>
+            Evaluation of seating success after worker completed/got cancelled
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:PokerMasterSuite2.SeatingScript.startSeating(PokerMasterSuite2.ScanButton)">
+            <summary>
+            Start SeatingScript
+            </summary>
+            <param name="button">ScanButton from table where scripts will start running (necessary to update GUI)</param>
+        </member>
+        <member name="M:PokerMasterSuite2.SeatingScript.ButtonStopSeatingScript_Click(System.Object,System.EventArgs)">
+            <summary>
+            StopSeating Script Button
+            </summary>
+            <param name="sender">ScanButton</param>
+            <param name="e"></param>
+        </member>
+        <member name="M:PokerMasterSuite2.SeatingScript.stopSeating(PokerMasterSuite2.ScanButton)">
+            <summary>
+            Stop SeatingScript - Accessible from rest of toolbox, handles stop-requests
+            </summary>
+            <param name="b">ScanButton of table which seatingscript will stop</param>
+        </member>
+        <member name="M:PokerMasterSuite2.SeatingScript.attemptSeating(System.IntPtr,System.Collections.Generic.List{System.Drawing.Rectangle})">
+            <summary>
+            Try to seat every pre-set interval if seat opened up
+            </summary>
+            <param name="handle">Pointer of table which gets scanned</param>
+            <param name="ava">List of avatar positions which need to get checked and eventually clicked on</param>
+            <returns></returns>
+        </member>
+        <member name="M:PokerMasterSuite2.SeatingScript.Worker_DoWork(System.Object,System.ComponentModel.DoWorkEventArgs)">
+            <summary>
+            Worker Method
+            </summary>
+            <param name="sender"></param>
+            <param name="e">Pointer of table which seatingscript should run on, List of Avatar-Rectangles which should get monitored</param>
+        </member>
+        <member name="M:PokerMasterSuite2.SeatingScript.clickSeat(System.IntPtr,System.Drawing.Rectangle)">
+            <summary>
+            Clicks on predefined rectangle in order to sit down
+            </summary>
+            <param name="table"></param>
+            <param name="clickBox">position for click</param>
+        </member>
+        <member name="M:PokerMasterSuite2.SeatingScript.getTableSize(PokerMasterSuite2.ScanButton)">
+            <summary>
+            Get TableSize from ScanButton
+            </summary>
+            <param name="button">ScanButton</param>
+            <returns>TableSize</returns>
+        </member>
+        <member name="M:PokerMasterSuite2.SeatingScript.RemoveClickEvent(System.Windows.Forms.Button)">
+            <summary>
+            Remove Click Events from Buttons
+            </summary>
+            <param name="b"></param>
+        </member>
+        <member name="T:PokerMasterSuite2.AlertWorker">
+            <summary>
+            Handles alerts if players has options
+            ==> Plays a sound if buttons for actions are enabled
+            </summary>
+        </member>
+        <!-- Ungültiger XML-Kommentar wurde für den Member "M:PokerMasterSuite2.AlertWorker.#ctor" ignoriert -->
+        <member name="M:PokerMasterSuite2.AlertWorker.start">
+            <summary>
+            Worker Starte
+            </summary>
+        </member>
+        <member name="M:PokerMasterSuite2.AlertWorker.Worker_DoWork(System.Object,System.ComponentModel.DoWorkEventArgs)">
+            <summary>
+            Check every 1000ms if players has options
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:PokerMasterSuite2.AlertWorker.playerHasOptions">
+            <summary>
+            Check for action buttons on the table with the help of preset Color in hardcoded place
+            </summary>
+        </member>
+        <member name="M:PokerMasterSuite2.AlertWorker.checkColor(System.Drawing.Bitmap,System.Drawing.Color)">
+            <summary>
+            Check if options are available
+            </summary>
+            <param name="bmp">Cropped image of the part of the table where buttons will appear</param>
+            <param name="col">Average color of buttons</param>
+            <returns></returns>
+        </member>
+        <member name="T:PokerMasterSuite2.TableDataDebugDisplay">
+            <summary>
+            Visual Debug Form for TableData information
+            </summary>
+        </member>
+        <member name="T:PokerMasterSuite2.TableSize">
+            <summary>
+            Defines Constant String names for individual positions on every table
+            (Top, TopLeft, TopRight,...)
+            </summary>
+        </member>
+        <member name="T:PokerMasterSuite2.TableSize.SixHanded">
+            <summary>
+            SixHanded Template
+            </summary>
+        </member>
+        <member name="M:PokerMasterSuite2.TableSize.SixHanded.getAll">
+            <summary>
+            Retrieve constant seatnames
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:PokerMasterSuite2.TableSize.SevenHanded">
+            <summary>
+            SevenHanded template
+            </summary>
+        </member>
+        <member name="M:PokerMasterSuite2.TableSize.SevenHanded.getAll">
+            <summary>
+            Retrieve constant seatnames
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:PokerMasterSuite2.TableSize.EightHanded">
+            <summary>
+            Eighthanded Template
+            </summary>
+        </member>
+        <member name="M:PokerMasterSuite2.TableSize.EightHanded.getAll">
+            <summary>
+            Retrieve constant seatnames
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:PokerMasterSuite2.TableSize.NineHanded">
+            <summary>
+             NineHanded Template
+            </summary>
+        </member>
+        <member name="M:PokerMasterSuite2.TableSize.NineHanded.getAll">
+            <summary>
+            Retrieve constant seatnames
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="F:PokerMasterSuite2.Form1.components">
+            <summary>
+            Erforderliche Designervariable.
+            </summary>
+        </member>
+        <member name="M:PokerMasterSuite2.Form1.Dispose(System.Boolean)">
+            <summary>
+            Verwendete Ressourcen bereinigen.
+            </summary>
+            <param name="disposing">True, wenn verwaltete Ressourcen gelöscht werden sollen; andernfalls False.</param>
+        </member>
+        <member name="M:PokerMasterSuite2.Form1.InitializeComponent">
+            <summary>
+            Erforderliche Methode für die Designerunterstützung.
+            Der Inhalt der Methode darf nicht mit dem Code-Editor geändert werden.
+            </summary>
+        </member>
+        <member name="M:PokerMasterSuite2.Program.Main">
+            <summary>
+            Der Haupteinstiegspunkt für die Anwendung.
+            </summary>
+        </member>
+        <member name="T:PokerMasterSuite2.ScanButton">
+            <summary>
+            ScanButton Object - extends regular Button 
+            </summary>
+        </member>
+        <member name="T:PokerMasterSuite2.Screenshot">
+            <summary>
+            Handles evereything related to Capturing and cropping Screenshots
+            </summary>
+        </member>
+        <member name="M:PokerMasterSuite2.Screenshot.CaptureApplication(System.IntPtr)">
+            <summary>
+            Capture Screenshot from window-pointer
+            </summary>
+            <param name="procName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PokerMasterSuite2.Screenshot.CropImage(System.Drawing.Image,System.Drawing.Rectangle)">
+            <summary>
+            Crop Image
+            </summary>
+            <param name="source">Big image</param>
+            <param name="crop">Cropping size/Rectangle</param>
+            <returns>Cropped image</returns>
+        </member>
+        <member name="M:PokerMasterSuite2.Screenshot.CropImage(System.Drawing.Image,System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Alternative Cropping Method
+            </summary>
+            <param name="source"></param>
+            <param name="x"></param>
+            <param name="y"></param>
+            <param name="width"></param>
+            <param name="height"></param>
+            <returns></returns>
+        </member>
+        <member name="T:PokerMasterSuite2.ScreenshotAnalyzer">
+            <summary>
+            Handles everything related to cropping Tablescreenshots to relevant parts of the screen (nick, avatar) 
+            </summary>
+        </member>
+        <member name="M:PokerMasterSuite2.ScreenshotAnalyzer.#ctor(Tesseract.TesseractEngine,System.Drawing.Bitmap,System.Collections.Generic.Stack{System.String},System.Int32)">
+            <summary>
+            Initialize with info provided
+            </summary>
+            <param name="ocrEngine">TesseractEngine Instance</param>
+            <param name="screen">TableScreenshot</param>
+            <param name="seats">Stack of Seats which will get analyzed (f.e. only unlocked seats)</param>
+            <param name="numberOfSeats">Tablesize (important for picking correct positions)</param>
+        </member>
+        <member name="M:PokerMasterSuite2.ScreenshotAnalyzer.getSingleAvatar(System.Drawing.Bitmap,System.String,System.Int32)">
+            <summary>
+            Retrieves avatar for specific seatname (Cropping to relevant part)
+            </summary>
+            <param name="screen">Tablescreenshot</param>
+            <param name="seatname">Seatname in focus</param>
+            <param name="numberOfSeats">Tablesize (pick correct positions)</param>
+            <returns>Avatar Image</returns>
+        </member>
+        <member name="M:PokerMasterSuite2.ScreenshotAnalyzer.constructRawSeatinfo(System.Collections.Generic.Stack{System.String})">
+            <summary>
+            Cuts main screenshot into pieces for avatar and nickname rectangles
+            </summary>
+            <param name="analyzeSeats">Seats which will get analyzed</param>
+            <returns>Complete RawInfo (cropped images for every seat in focus) for the table</returns>
+        </member>
+        <member name="M:PokerMasterSuite2.ScreenshotAnalyzer.runOpticalCharacterRecognition(Tesseract.TesseractEngine,System.Collections.Generic.Dictionary{System.String,PokerMasterSuite2.RawSeatInfo})">
+            <summary>
+            Runs OCR on nickname bitmaps
+            </summary>
+            <param name="tesseractEngine">Tesseract Engine</param>
+            <param name="dict">RawInfo requested seats</param>
+            <returns>Updated RawInfo - now with OCRd nickname</returns>
+        </member>
+        <member name="M:PokerMasterSuite2.ScreenshotAnalyzer.printDictionary(System.Collections.Generic.Dictionary{System.String,PokerMasterSuite2.RawSeatInfo})">
+            <summary>
+            Debug
+            </summary>
+            <param name="dd"></param>
+        </member>
+        <member name="M:PokerMasterSuite2.ScreenshotAnalyzer.printDictionary(System.Collections.Generic.Dictionary{System.String,System.Drawing.Rectangle})">
+            <summary>
+            Debug
+            </summary>
+            <param name="dd"></param>
+        </member>
+        <member name="T:PokerMasterSuite2.SeatData">
+            <summary>
+            SeatData Class
+            </summary>
+        </member>
+        <member name="M:PokerMasterSuite2.SeatData.#ctor">
+            <summary>
+            Initialize SeatData object
+            </summary>
+        </member>
+        <member name="T:PokerMasterSuite2.SessionHandler">
+            <summary>
+            This class is where the party starts as it handles every other part of the toolbox.
+            The toolbox by design splits plain data representation (playernames, seatnames, etc) and visual components (GUI: PlayerButtons displayed on the table)
+            All data-relevant actions (updating info on players) are handled by the "TableHandler" which has control over SeatData-Instances.
+            All GUI-relevant actions (display Button on Table, change Color based on Colorcode of the player) are handled by PlayerButtonHandler and subsequent classes.
+            The Class "TableHandler" is where Data and GUI-Actions are coordinated and handled
+            </summary>
+        </member>
+        <member name="M:PokerMasterSuite2.SessionHandler.#ctor">
+            <summary>
+            Initialize all of the above components
+            </summary>
+        </member>
+        <member name="M:PokerMasterSuite2.SessionHandler.updateSession">
+            <summary>
+            Check for new Emulator instances
+            </summary>
+        </member>
+        <member name="M:PokerMasterSuite2.SessionHandler.checkEmulatorSize(System.IntPtr)">
+            <summary>
+            Check if Size of Emulator windows match with the loaded/pre-defined windows size
+            Resize window if it doesnt match the pre-defined sizes
+            </summary>
+            <param name="emulator"></param>
+        </member>
+        <member name="M:PokerMasterSuite2.SessionHandler.launchOCREngine">
+            <summary>
+            Launch Google's Tesseract OCR Engine from /tessadata directory
+            Preset languages: english, simplified and traditional chinese
+            </summary>
+        </member>
+        <member name="M:PokerMasterSuite2.SessionHandler.attachScanControls">
+            <summary>
+            Attach ScanButton to Emulator instances
+            </summary>
+        </member>
+        <member name="M:PokerMasterSuite2.SessionHandler.ControlButton_Click(System.Object,System.EventArgs)">
+            <summary>
+            Start TableModule ==> Scan Button Was clicked 
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:PokerMasterSuite2.SessionHandler.detachScanControls">
+            <summary>
+            Detach ScanButton from every Instance
+            </summary>
+        </member>
+        <member name="M:PokerMasterSuite2.SessionHandler.removeScanButton(PokerMasterSuite2.ScanButton)">
+            <summary>
+            Remove ScanButton from single Instance
+            </summary>
+            <param name="sb"></param>
+        </member>
+        <member name="T:PokerMasterSuite2.TableData">
+            <summary>
+            Key class of information management (updating status of seats, change playernames,...)
+            </summary>
+        </member>
+        <member name="M:PokerMasterSuite2.TableData.#ctor(System.Int32)">
+            <summary>
+            Initialize TableData for different sizes of tables (2,6,7,8,9)
+            </summary>
+            <param name="numberOfSeats">TableSize (6max, 7max,..)</param>
+        </member>
+        <member name="M:PokerMasterSuite2.TableData.getSeatList">
+            <summary>
+            Returns plain SeatList
+            </summary>
+            <returns>SeatList</returns>
+        </member>
+        <member name="M:PokerMasterSuite2.TableData.isSeatLocked(System.String)">
+            <summary>
+            Checks if seat is locked
+            </summary>
+            <param name="seat"></param>
+            <returns>true/false</returns>
+        </member>
+        <member name="M:PokerMasterSuite2.TableData.lockSeat(System.String)">
+            <summary>
+            Locks single seat
+            </summary>
+            <param name="seat"></param>
+        </member>
+        <member name="M:PokerMasterSuite2.TableData.unlockSeat(System.String)">
+            <summary>
+            Unlocks single seat
+            </summary>
+            <param name="seat"></param>
+        </member>
+        <member name="M:PokerMasterSuite2.TableData.unlockAllSeats">
+            <summary>
+            Unlocks all Seats
+            </summary>
+        </member>
+        <member name="M:PokerMasterSuite2.TableData.lockAllSeats">
+            <summary>
+            Locks all Seats
+            </summary>
+        </member>
+        <member name="M:PokerMasterSuite2.TableData.getUnlockedSeats">
+            <summary>
+            Request a list of all unlocked seats from the data representation
+            </summary>
+            <returns>Stack of strings of seatnames</returns>
+        </member>
+        <member name="M:PokerMasterSuite2.TableData.getTableSize">
+            <summary>
+            Retrieves table size (6max, 7max)...
+            </summary>
+            <returns>int - 6,7,8,9...</returns>
+        </member>
+        <member name="M:PokerMasterSuite2.TableData.setNickname(System.String,System.String)">
+            <summary>
+            Set Nickname for specific seat
+            </summary>
+            <param name="seat">Seatname</param>
+            <param name="nickname">Nickname</param>
+        </member>
+        <member name="M:PokerMasterSuite2.TableData.getSeatname(System.String)">
+            <summary>
+            Requests seatname from/by playername
+            </summary>
+            <param name="playername"></param>
+            <returns>String - seatname</returns>
+        </member>
+        <member name="M:PokerMasterSuite2.TableData.getNickname(System.String)">
+            <summary>
+            Gets Nickname from Seatname
+            </summary>
+            <param name="seat"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PokerMasterSuite2.TableData.deleteNickname(System.String)">
+            <summary>
+            Delete Nickname in specific seat
+            </summary>
+            <param name="seat"></param>
+        </member>
+        <member name="M:PokerMasterSuite2.TableData.setColor(System.String,System.Drawing.Color)">
+            <summary>
+            Set Color for Seat
+            </summary>
+            <param name="seat"></param>
+            <param name="color"></param>
+        </member>
+        <member name="M:PokerMasterSuite2.TableData.setAvatar(System.String,System.Drawing.Bitmap)">
+            <summary>
+            Set Avatar-Image for specific seat
+            </summary>
+            <param name="seat"></param>
+            <param name="avatar"></param>
+        </member>
+        <member name="M:PokerMasterSuite2.TableData.getColor(System.String)">
+            <summary>
+            Request playercolor for specific seatname
+            </summary>
+            <param name="seat"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PokerMasterSuite2.TableData.deleteAvatar(System.String)">
+            <summary>
+            Delete Avatar for a specific seat
+            </summary>
+            <param name="seat"></param>
+        </member>
+        <member name="M:PokerMasterSuite2.TableData.getAvatar(System.String)">
+            <summary>
+            Request Avatar for specific seat
+            </summary>
+            <param name="seat"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PokerMasterSuite2.TableData.removeSeat(System.String)">
+            <summary>
+            Remove specific seat from data representation 
+            (Doesn't really remove. Just resets to new/empty seatData instasnce)
+            </summary>
+            <param name="seatName"></param>
+        </member>
+        <member name="M:PokerMasterSuite2.TableData.removeAllSeats">
+            <summary>
+            Remove (Reset) all Seats from data representation
+            </summary>
+        </member>
+        <member name="M:PokerMasterSuite2.TableData.printTableData">
+            <summary>
+            Debug Output
+            </summary>
+        </member>
+        <member name="M:PokerMasterSuite2.TableData.playerIsSeated(System.String)">
+            <summary>
+            Check if players is actually seating at that table
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="T:PokerMasterSuite2.TableHandler">
+            <summary>
+            Coordinates the interaction between Data (from TableData) and GUI (from PlayerButtonHandler)
+            </summary>
+        </member>
+        <member name="M:PokerMasterSuite2.TableHandler.#ctor(Tesseract.TesseractEngine)">
+            <summary>
+            Set Tesseract Instance
+            </summary>
+            <param name="ocrEngine"></param>
+        </member>
+        <member name="F:PokerMasterSuite2.TableHandler.tableSessions">
+            <summary>
+            Holds all scanned tables
+            </summary>
+        </member>
+        <member name="F:PokerMasterSuite2.TableHandler.buttonInventory">
+            <summary>
+            Holds PlayerButtonHandlers for every table
+            </summary>
+        </member>
+        <member name="F:PokerMasterSuite2.TableHandler.alerter">
+            <summary>
+            Handles Alerter activity (true = alerts, false = quiet)
+            </summary>
+        </member>
+        <member name="M:PokerMasterSuite2.TableHandler.getTableDataFromTableName(System.String)">
+            <summary>
+            Requests Tabledata for certain table
+            </summary>
+            <param name="tablename">Tablename in focus</param>
+            <returns>TableData Instance</returns>
+        </member>
+        <member name="M:PokerMasterSuite2.TableHandler.scan(PokerMasterSuite2.ScanButton)">
+            <summary>
+            Triggers Tablescan where all info will be gathered and retrieve information will get separated into Data and GUI Parts
+            </summary>
+            <param name="button">ScanButton of table in focus</param>
+        </member>
+        <member name="M:PokerMasterSuite2.TableHandler.Dispose(System.IntPtr)">
+            <summary>
+            Remove TableHandle from Handler
+            </summary>
+            <param name="tableHandle"></param>
+        </member>
+        <member name="M:PokerMasterSuite2.TableHandler.refreshTableData(PokerMasterSuite2.Note,System.String)">
+            <summary>
+            Refresh Table Data - Used after Deleting a Note and resetting defaults
+            Especially needed when we delete from Note Window that was not open by Click from table,
+            but from NoteBrowser or from Click on SimilarNickName-Icon
+            </summary>
+            <param name="note"></param>
+            <param name="tablename"></param>
+        </member>
+        <member name="M:PokerMasterSuite2.TableHandler.refreshPlayerButtons(System.String)">
+            <summary>
+            Refresh Player Buttons - Used after Deleting a Note and resetting defaults
+            Especially needed when we delete from Note Window that was not open by Click from table,
+            but from NoteBrowser or from Click on SimilarNickName-Icon
+            </summary>
+            <param name="tablename"></param>
+        </member>
+        <member name="T:PokerMasterSuite2.WinAPI.WinCallBack">
+            
+             Delegate Funktion für EnumWindows (Siehe Declarations)
+             Gibt die Werte an EnumWindowCallBack weiter
+            
+        </member>
+        <member name="T:PokerMasterSuite2.Properties.Resources">
+            <summary>
+              Eine stark typisierte Ressourcenklasse zum Suchen von lokalisierten Zeichenfolgen usw.
+            </summary>
+        </member>
+        <member name="P:PokerMasterSuite2.Properties.Resources.ResourceManager">
+            <summary>
+              Gibt die zwischengespeicherte ResourceManager-Instanz zurück, die von dieser Klasse verwendet wird.
+            </summary>
+        </member>
+        <member name="P:PokerMasterSuite2.Properties.Resources.Culture">
+            <summary>
+              Überschreibt die CurrentUICulture-Eigenschaft des aktuellen Threads für alle
+              Ressourcenlookups, die diese stark typisierte Ressourcenklasse verwenden.
+            </summary>
+        </member>
+    </members>
+</doc>
